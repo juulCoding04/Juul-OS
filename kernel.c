@@ -88,3 +88,11 @@ void terminal_write(const char* data, size_t size) {
 void terminal_writestring(const char* str) {
 	terminal_write(str, strlen(str));
 }
+
+void kernel_main(void) {
+	/* Init the terminal interface */
+	terminal_init();
+
+	/* write a string to the screen (Newline support needs to be fixed still) */
+	terminal_writestring("Hello World, from the kernel");
+}
