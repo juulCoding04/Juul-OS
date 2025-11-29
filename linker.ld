@@ -1,7 +1,7 @@
 ENTRY(_start) /* _start from boot.s as entry point for the bootloader*/
 
 SECTIONS {
-	. = 2M /* use 2M as start offset (used to be 1M need to read why this has changed?)*/
+	. = 2M; /* use 2M as start offset (used to be 1M need to read why this has changed?)*/
 	.text BLOCK(4K) : ALIGN(4K) { /* load multiboot header?*/
 		*(.multiboot)
 		*(.text)
