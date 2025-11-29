@@ -84,3 +84,7 @@ void terminal_write(const char* data, size_t size) {
 		terminal_putchar(data[i]);
 	}
 }
+
+void terminal_writestring(const char* str) {
+	terminal_write(str, strlen(str));
+}
