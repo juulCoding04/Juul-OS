@@ -66,7 +66,7 @@ void terminal_setcolor(uint8_t color) {
 
 void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) {
 	const size_t idx = y * VGA_WIDTH + x;
-	terminal_buffer[idx] = vga_entry(c, terminal_color);
+	terminal_buffer[idx] = vga_entry(c, color);
 }
 
 void terminal_putchar(char c) {
