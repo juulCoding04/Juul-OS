@@ -70,11 +70,16 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) {
 }
 
 void terminal_putchar(char c) {
-	terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
-	if (++terminal_column == VGA_WIDTH) { // increment cursor to the right (check is for column wrap around at the end of a line)
+	if (c == '\n') {
 		terminal_column = 0;
-		if (++terminal_row == VGA_HEIGHT) { // if we got to the end of a line go to column 1 and increment the cursor in the y direction (go back to 0 if at the end of the screen)
-			terminal_row = 0;
+		++terminal_row;
+	} else {
+		terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
+		if (++terminal_column == VGA_WIDTH) { // increment cursor to the right (check is for column wrap around at the end of a line)
+			terminal_column = 0;
+			if (++terminal_row == VGA_HEIGHT) { // if we got to the end of a line go to column 1 and increment the cursor in the y direction (go back to 0 if at the end of the screen)
+				terminal_row = 0;
+			}
 		}
 	}
 }
@@ -94,5 +99,6 @@ void kernel_main(void) {
 	terminal_init();
 
 	/* write a string to the screen (Newline support needs to be fixed still) */
-	terminal_writestring("Hello World, from the kernel");
+	terminal_writestring("Hello World, from the kernel\n");
+	terminal_writestring("jippieeee new line");
 }
