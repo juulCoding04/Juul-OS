@@ -70,10 +70,13 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) {
 }
 
 void terminal_putchar(char c) {
-	if (c == '\n') {
+	switch(c) {
+		case '\n':
 		terminal_column = 0;
-		++terminal_row;
-	} else {
+		if (++terminal_row == VGA_HEIGHT) terminal_row = 0;
+		break;
+
+		default:
 		terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
 		if (++terminal_column == VGA_WIDTH) { // increment cursor to the right (check is for column wrap around at the end of a line)
 			terminal_column = 0;
@@ -81,7 +84,9 @@ void terminal_putchar(char c) {
 				terminal_row = 0;
 			}
 		}
+		break;
 	}
+
 }
 
 void terminal_write(const char* data, size_t size) {
@@ -99,6 +104,6 @@ void kernel_main(void) {
 	terminal_init();
 
 	/* write a string to the screen (Newline support needs to be fixed still) */
-	terminal_writestring("Hello World, from the kernel\n");
-	terminal_writestring("jippieeee new line");
+	terminal_writestring("Hello World!\n");
+	terminal_writestring("Welcome to the kernel");
 }
