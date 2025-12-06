@@ -1,0 +1,21 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-c",
+      "-O2",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-D__is_kernel",
+      "-Iinclude",
+      "-o",
+      "arch/i386/crti.o",
+      "arch/i386/crti.S"
+    ],
+    "directory": "/Users/juulchristiaens/Documents/1_Projects/Juul-OS/kernel",
+    "file": "/Users/juulchristiaens/Documents/1_Projects/Juul-OS/kernel/arch/i386/crti.S",
+    "output": "/Users/juulchristiaens/Documents/1_Projects/Juul-OS/kernel/arch/i386/crti.o"
+  }
+]
