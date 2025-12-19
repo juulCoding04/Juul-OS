@@ -1,0 +1,23 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-c",
+      "-std=gnu11",
+      "-O2",
+      "-g",
+      "-ffreestanding",
+      "-Wall",
+      "-Wextra",
+      "-D__is_libc",
+      "-Iinclude",
+      "-D__is_libk",
+      "-o",
+      "stdio/printf.libk.o",
+      "stdio/printf.c"
+    ],
+    "directory": "/Users/juulchristiaens/Documents/1_Projects/Juul-OS/libc",
+    "file": "/Users/juulchristiaens/Documents/1_Projects/Juul-OS/libc/stdio/printf.c",
+    "output": "/Users/juulchristiaens/Documents/1_Projects/Juul-OS/libc/stdio/printf.libk.o"
+  }
+]
