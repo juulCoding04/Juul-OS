@@ -30,12 +30,12 @@ LIBK_CPPFLAGS:=$(LIBK_CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
 FREEOBJS=\
 $(ARCH_FREEOBJS) \
 string/strlen.o \
+string/memcpy.o \
 #stdio/printf.o \
 #stdio/putchar.o \
 #stdio/puts.o \
 #stdlib/abort.o \
 #string/memcmp.o \
-#string/memcpy.o \
 #string/memmove.o \
 #string/memset.o \
 
