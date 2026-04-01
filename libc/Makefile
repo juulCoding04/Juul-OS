@@ -4,7 +4,7 @@ HOSTARCH=i386
 
 CFLAGS?=-O2 -g
 CPPFLAGS?=
-LDFLAGS?=
+LDFLAGS?= -L$(SYSROOT)/usr/lib
 LIBS?=
 
 DESTDIR?=
@@ -14,7 +14,7 @@ INCLUDEDIR?=$(PREFIX)/include
 LIBDIR?=$(EXEC_PREFIX)/lib
 
 CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
-CPPFLAGS:=$(CPPFLAGS) -D__is_libc -Iinclude
+CPPFLAGS:=$(CPPFLAGS) -D__is_libc -Iinclude -I$(SYSROOT)/usr/include
 LIBK_CFLAGS:=$(CFLAGS)
 LIBK_CPPFLAGS:=$(CPPFLAGS) -D__is_libk
 
@@ -29,7 +29,8 @@ LIBK_CPPFLAGS:=$(LIBK_CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
 
 FREEOBJS=\
 $(ARCH_FREEOBJS) \
-stdio/printf.o \
+string/strlen.o \
+#stdio/printf.o \
 #stdio/putchar.o \
 #stdio/puts.o \
 #stdlib/abort.o \
@@ -37,7 +38,6 @@ stdio/printf.o \
 #string/memcpy.o \
 #string/memmove.o \
 #string/memset.o \
-#string/strlen.o \
 
 HOSTEDOBJS=\
 $(ARCH_HOSTEDOBJS) \
@@ -83,7 +83,7 @@ install: install-headers install-libs
 
 install-headers:
 	mkdir -p $(DESTDIR)$(INCLUDEDIR)
-	cp -R --preserve=timestamps include/. $(DESTDIR)$(INCLUDEDIR)/.
+	cp -R -p include/. $(DESTDIR)$(INCLUDEDIR)/.
 
 install-libs: $(BINARIES)
 	mkdir -p $(DESTDIR)$(LIBDIR)
