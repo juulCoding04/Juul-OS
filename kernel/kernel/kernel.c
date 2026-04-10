@@ -7,6 +7,8 @@ void kernel_main(void) {
 	terminal_init();
     terminal_writestring("Hello from terminal!\n");
 
+    printf("hello %c\n", 'J');
+
     // Testing memcpy
     char src[] = "test";
     char dest[10];

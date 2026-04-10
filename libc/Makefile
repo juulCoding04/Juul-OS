@@ -31,8 +31,8 @@ FREEOBJS=\
 $(ARCH_FREEOBJS) \
 string/strlen.o \
 string/memcpy.o \
-#stdio/printf.o \
-#stdio/putchar.o \
+stdio/putchar.o \
+stdio/printf.o \
 #stdio/puts.o \
 #stdlib/abort.o \
 #string/memcmp.o \
