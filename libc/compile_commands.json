@@ -11,6 +11,7 @@
       "-Wextra",
       "-D__is_libc",
       "-Iinclude",
+      "-I../kernel/include/",
       "-D__is_libk",
       "-o",
       "stdio/printf.libk.o",
