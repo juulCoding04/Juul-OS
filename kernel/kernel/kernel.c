@@ -6,19 +6,22 @@
 void kernel_main(void) {
 	terminal_init();
     terminal_writestring("Hello from terminal!\n");
-
+    
+    printf("\n---test printf char---\n");
     printf("hello %c\n", 'J');
 
-    // Testing memcpy
-    char src[] = "test";
-    char dest[10];
-    memcpy(dest, src, 5);
+    printf("\n---test printf string---\n");
+    printf("hello %s\n", "there");
 
-    terminal_writestring("Source: ");
-    terminal_writestring(src);
-    terminal_writestring("\n");
+    printf("\n---test printf integer---\n");
+    printf("digit: %d\n", 987654321);
 
-    terminal_writestring("Destination: ");
-    terminal_writestring(dest);
-    terminal_writestring("\n");
+    printf("\n---test printf neg int---\n");
+    printf("neg: %d\n", -54321);
+
+    printf("\n---test printf x---\n");
+    printf("dig: %d = hex: %x", 10, 10);
+
+    printf("\n--test printf percent and default---\n");
+    printf("100%%; %h");
 }
