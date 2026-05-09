@@ -6,22 +6,23 @@
 void kernel_main(void) {
 	terminal_init();
     terminal_writestring("Hello from terminal!\n");
-    
-    printf("\n---test printf char---\n");
-    printf("hello %c\n", 'J');
 
-    printf("\n---test printf string---\n");
-    printf("hello %s\n", "there");
+    int arr1[] = {1, 2, 3};
+    int arr2[] = {1, 2, 3};
+    int arr3[] = {1, 3, 3};
 
-    printf("\n---test printf integer---\n");
-    printf("digit: %d\n", 987654321);
+    int result_1_2 = memcmp(arr1, arr2, sizeof(arr1));
 
-    printf("\n---test printf neg int---\n");
-    printf("neg: %d\n", -54321);
+    if (result_1_2 == 0) {
+        printf("arrays 1 and 2 are equal\n");
+    } else {
+        printf("arrays 1 and 2 are not equal");
+    }
 
-    printf("\n---test printf x---\n");
-    printf("dig: %d = hex: %x", 10, 10);
-
-    printf("\n--test printf percent and default---\n");
-    printf("100%%; %h");
+    int result_1_3 = memcmp(arr1, arr3, sizeof(arr1));
+    if (result_1_3 == 0) {
+        printf("arrays 1 and 3 are equal\n");
+    } else {
+        printf("arrays 1 and 3 are not equal");
+    }
 }
