@@ -36,7 +36,7 @@ stdio/putchar.o \
 stdio/printf.o \
 string/memmove.o \
 string/memset.o \
-#stdio/puts.o \
+stdio/puts.o \
 #stdlib/abort.o \
 
 
