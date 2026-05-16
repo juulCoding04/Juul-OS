@@ -14,7 +14,7 @@ BOOTDIR?=$(EXEC_PREFIX)/boot
 INCLUDEDIR?=$(PREFIX)/include
 
 CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
-CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude -I$(SYSROOT)/usr/include
+CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude -I$(SYSROOT)/usr/include -I..
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
 
@@ -25,9 +25,18 @@ CPPFLAGS:=$(CPPFLAGS) $(KERNEL_ARCH_CPPFLAGS)
 LDFLAGS:=$(LDFLAGS) $(KERNEL_ARCH_LDFLAGS)
 LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 
+
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
+
+TEST_KERNEL_OBJS=\
+$(KERNEL_ARCH_OBJS) \
+kernel/kernel_test.o
+
+TEST_OBJS=\
+../tests/test_runner.o \
+../tests/libc/test_mem.o \
 
 OBJS=\
 $(ARCHDIR)/crti.o \
@@ -45,7 +54,19 @@ $(LIBS) \
 $(ARCHDIR)/crtend.o \
 $(ARCHDIR)/crtn.o \
 
-.PHONY: all clean install install-headers install-kernel
+TEST_LINK_LIST=\
+$(LDFLAGS) \
+$(ARCHDIR)/crti.o \
+$(ARCHDIR)/crtbegin.o \
+$(TEST_KERNEL_OBJS) \
+$(TEST_OBJS) \
+$(LIBS) \
+$(ARCHDIR)/crtend.o \
+$(ARCHDIR)/crtn.o \
+
+TEST_CPPFLAGS=$(CPPFLAGS) -DRUN_TESTS
+
+.PHONY: all clean install install-headers install-kernel test
 .SUFFIXES: .o .c .S
 
 all: myos.kernel
@@ -53,8 +74,16 @@ all: myos.kernel
 myos.kernel: $(OBJS) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
 
+myos_test.kernel: $(ARCHDIR)/crti.o $(ARCHDIR)/crtbegin.o $(TEST_KERNEL_OBJS) $(TEST_OBJS) $(ARCHDIR)/crtend.o $(ARCHDIR)/crtn.o $(ARCHDIR)/linker.ld
+	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(TEST_LINK_LIST)
+
+test: myos_test.kernel
+
 $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
 	OBJ=`$(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@
+
+kernel/kernel_test.o: kernel/kernel.c
+	$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(TEST_CPPFLAGS)
 
 .c.o:
 	$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
@@ -63,8 +92,8 @@ $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
 	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 
 clean:
-	rm -f myos.kernel
-	rm -f $(OBJS) *.o */*.o */*/*.o
+	rm -f myos.kernel myos_test.kernel
+	rm -f $(OBJS) $(TEST_OBJS) *.o */*.o */*/*.o
 	rm -f $(OBJS:.o=.d) *.d */*.d */*/*.d
 
 install: install-headers install-kernel
