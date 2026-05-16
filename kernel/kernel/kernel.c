@@ -9,7 +9,8 @@
 
 void kernel_main(void) {
 	terminal_init();
-    terminal_writestring("Hello from terminal!\n");
+    puts("Hello from terminal!\n");
+
 
     #ifdef RUN_TESTS
         run_all_tests();
