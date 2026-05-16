@@ -34,10 +34,11 @@ string/memcpy.o \
 string/memcmp.o \
 stdio/putchar.o \
 stdio/printf.o \
+string/memmove.o \
+string/memset.o \
 #stdio/puts.o \
 #stdlib/abort.o \
-#string/memmove.o \
-#string/memset.o \
+
 
 HOSTEDOBJS=\
 $(ARCH_HOSTEDOBJS) \

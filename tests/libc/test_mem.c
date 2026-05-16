@@ -14,4 +14,15 @@ void test_mem(void) {
     memcpy(dest, "hello", 5);
     ASSERT(dest[4] == 'o', "memcpy copies correctly");
     ASSERT(dest[5] == canary, "memcpy doesn't overwrite past n");
+
+    // strlen
+    ASSERT(strlen("hello") == 5, "strlen handles normal strings");
+    ASSERT(strlen("") == 0, "strlen handles empty strings");
+
+    // memset
+    char str[5] = "hello";
+    memset(str+1, '.', 3*sizeof(char));
+    ASSERT(str[0] == 'h', "memset starts correctly");
+    ASSERT(str[1] == '.', "memset fills correctly");
+    ASSERT(str[4] == 'o', "memset ends correctly");
 }
