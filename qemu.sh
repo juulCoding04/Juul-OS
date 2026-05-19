@@ -1,2 +1,2 @@
 #!/bin/sh
-qemu-system-i386 -kernel sysroot/boot/myos.kernel
+qemu-system-i386 -kernel sysroot/boot/myos.kernel -serial stdio

@@ -29,10 +29,12 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
+drivers/serial.o
 
 TEST_KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
-kernel/kernel_test.o
+kernel/kernel_test.o \
+drivers/serial_test.o
 
 TEST_OBJS=\
 ../tests/test_runner.o \
