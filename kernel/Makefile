@@ -34,7 +34,7 @@ drivers/serial.o
 TEST_KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel_test.o \
-drivers/serial_test.o
+drivers/serial.o
 
 TEST_OBJS=\
 ../tests/test_runner.o \

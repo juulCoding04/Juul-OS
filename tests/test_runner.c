@@ -6,7 +6,7 @@ int tests_passed = 0;
 int tests_failed = 0;
 
 void run_all_tests(void) {
-    printf("=== Running tests ===\n");
+    printf("\n=== Running tests ===\n");
 
     test_mem();
 
