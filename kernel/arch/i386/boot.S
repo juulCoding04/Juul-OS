@@ -26,8 +26,19 @@ stack_top:
 _start:
 	movl $stack_top, %esp
 
+    # Save multiboot registers BEFORE calling _init (since _init can freely use any regiter)
+    push %eax
+    push %ebx
+
 	# Call the global constructors.
 	call _init
+
+    # Restore and re-push as arguments for kernel_main
+    pop %ebx
+    pop %eax
+
+    push %ebx   # multiboot info struct pointer
+    push %eax   # multiboot magic number
 
 	# Transfer control to the main kernel.
 	call kernel_main
