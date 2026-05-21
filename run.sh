@@ -3,4 +3,5 @@ set -e
 ./clean.sh
 ./headers.sh
 ./build.sh
+clear
 ./qemu.sh

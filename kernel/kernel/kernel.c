@@ -10,16 +10,12 @@
 
 void kernel_main(void) {
 	terminal_init();
-    puts("Hello from terminal!\n");
 
     if (serial_init() != 0) {
-        printf("Something wrong with serial init\n");
+        printf("Failed to initialize serial");
     } else {
         printf("Serial initialized\n");
     }
-
-    printf("Hello from kernel again!");
-
 
     #ifdef RUN_TESTS
         run_all_tests();
