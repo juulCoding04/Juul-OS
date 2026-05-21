@@ -2,6 +2,7 @@
 #include <stdint.h>
 
 #define MULTIBOOT_MAGIC 0x2BADB002
+#define FLAG_MMAP (1 << 6)          // 1 bit at position 6
 
 typedef struct {
     uint32_t flags;
