@@ -1,0 +1,5 @@
+[[assemblers]]
+name = "gas"
+
+[[assemblers.instruction_sets]]
+name = "x86"
