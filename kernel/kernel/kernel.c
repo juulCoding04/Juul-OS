@@ -4,8 +4,7 @@
 
 #include <kernel/tty.h>
 #include <kernel/serial.h>
-
-#define MULTIBOOT_MAGIC 0x2BADB002
+#include <kernel/multiboot.h>
 
 #ifdef RUN_TESTS
 #include "tests/test_runner.h"
@@ -28,6 +27,11 @@ void kernel_main(uint32_t magic, uint32_t mbi_addr) {
 
     printf("Booted correctly, magic: 0x%x\n", magic);
     printf("Multiboot info at: 0x%x\n", mbi_addr);
+
+    multiboot_info_t* mbi = (multiboot_info_t*)mbi_addr;
+
+    printf("Lower memory: %d KB\n", mbi->mem_lower);
+    printf("Upper memory: %d KB\n", mbi->mem_upper);
 
     #ifdef RUN_TESTS
         run_all_tests();
