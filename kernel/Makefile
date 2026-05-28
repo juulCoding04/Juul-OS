@@ -13,7 +13,7 @@ EXEC_PREFIX?=$(PREFIX)
 BOOTDIR?=$(EXEC_PREFIX)/boot
 INCLUDEDIR?=$(PREFIX)/include
 
-CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra
+CFLAGS:=$(CFLAGS) -ffreestanding -Wall -Wextra -fstack-protector-all
 CPPFLAGS:=$(CPPFLAGS) -D__is_kernel -Iinclude -I$(SYSROOT)/usr/include -I..
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
@@ -29,12 +29,14 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
-drivers/serial.o
+drivers/serial.o \
+kernel/stack_protector.o
 
 TEST_KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel_test.o \
-drivers/serial.o
+drivers/serial.o \
+kernel/stack_protector.o
 
 TEST_OBJS=\
 ../tests/test_runner.o \
