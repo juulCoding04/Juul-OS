@@ -13,6 +13,7 @@
 void kernel_main(uint32_t magic, uint32_t mbi_addr) {
 	terminal_init();
 
+    // Debug print showing serial driver correctly initialized
     if (serial_init() != 0) {
         printf("Failed to initialize serial");
     } else {
@@ -28,6 +29,8 @@ void kernel_main(uint32_t magic, uint32_t mbi_addr) {
     printf("Booted correctly, magic: 0x%x\n", magic);
     printf("Multiboot info at: 0x%x\n", mbi_addr);
 
+    // Cast the address of the multiboot info to a pointer of a custom struct for multiboot info
+    // This allows us to get information out as defined in the specs for multiboot
     multiboot_info_t* mbi = (multiboot_info_t*)mbi_addr;
 
     printf("Lower memory: %d KB\n", mbi->mem_lower);
@@ -35,6 +38,7 @@ void kernel_main(uint32_t magic, uint32_t mbi_addr) {
 
     if (mbi->flags & FLAG_MMAP) {
         printf("\nMMAP flag set!\n");
+        // mbi exposes a pointer to the start of the memory map and the length
         multiboot_mmap_entry_t* mmap_start = (multiboot_mmap_entry_t*) mbi->mmap_addr;
         multiboot_mmap_entry_t* mmap_end = (multiboot_mmap_entry_t*) (mbi->mmap_addr + mbi->mmap_length);
 
@@ -47,7 +51,7 @@ void kernel_main(uint32_t magic, uint32_t mbi_addr) {
             }
 
             uint32_t start = (uint32_t)mmap_start->base_addr;
-            uint32_t end = (uint32_t)(mmap_start->base_addr + mmap_start->length);
+            uint32_t end = (uint32_t)(mmap_start->base_addr + mmap_start->length - 1);
 
             printf("0x%x - 0x%x  %s\n", start, end, type_str);
             mmap_start = (multiboot_mmap_entry_t*)((uint32_t)mmap_start + mmap_start->size + sizeof(uint32_t));
