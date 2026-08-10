@@ -43,3 +43,5 @@ typedef struct {
     uint64_t length;
     uint32_t type;
 } multiboot_mmap_entry_t;
+
+void multiboot_print_mmap(multiboot_info_t* mbi);
