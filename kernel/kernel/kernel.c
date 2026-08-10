@@ -5,6 +5,7 @@
 #include <kernel/tty.h>
 #include <kernel/serial.h>
 #include <kernel/multiboot.h>
+#include <kernel/gdt.h>
 
 #ifdef RUN_TESTS
 #include "tests/test_runner.h"
@@ -34,6 +35,8 @@ void kernel_main(uint32_t magic, uint32_t mbi_addr) {
     multiboot_info_t* mbi = (multiboot_info_t*)mbi_addr;
 
     multiboot_print_mmap(mbi);
+
+    printf("gdt descriptor size: %d\n", sizeof(gdt_segment_descriptor));
 
     #ifdef RUN_TESTS
         run_all_tests();
